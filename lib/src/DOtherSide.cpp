@@ -236,6 +236,61 @@ bool dos_qpixmap_isNull(DosPixmap *vptr)
     return pixmap->isNull();
 }
 
+::DosQImage *dos_qimage_create()
+{
+    return new QImage();
+}
+
+::DosQImage *dos_qimage_create_qimage(const DosQImage *other)
+{
+    auto image = static_cast<const QImage *>(other);
+    return new QImage(image ? *image : QImage());
+}
+
+::DosQImage *dos_qimage_create_constdata(const unsigned char* data, int width, int height, int bytesPerLine, int format, DosQImageCleanupCallback cleanupCallback, void *callbackData)
+{
+    return new QImage(data, width, height, bytesPerLine, static_cast<QImage::Format>(format), static_cast<QImageCleanupFunction>(cleanupCallback), callbackData);
+}
+
+void dos_qimage_delete(DosQImage *vptr)
+{
+    auto image = static_cast<QImage *>(vptr);
+    delete image;
+}
+
+void dos_qimage_load(DosQImage *vptr, const char* filepath, const char* format)
+{
+    auto image = static_cast<QImage *>(vptr);
+    image->load(QString(filepath), format);
+}
+
+void dos_qimage_loadFromData(DosQImage *vptr, const unsigned char* data, unsigned int len)
+{
+    auto image = static_cast<QImage *>(vptr);
+    image->loadFromData(data, len);
+}
+
+void dos_qimage_fill(DosQImage *vptr, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    auto image = static_cast<QImage *>(vptr);
+    image->fill(QColor(r, g, b, a));
+}
+
+void dos_qimage_assign(DosQImage *vptr, const DosQImage *other)
+{
+    if (vptr) {
+        auto lhs = static_cast<QImage *>(vptr);
+        auto rhs = static_cast<const QImage *>(other);
+        *lhs = rhs ? *rhs : QImage();
+    }
+}
+
+bool dos_qimage_isNull(DosQImage *vptr)
+{
+    auto image = static_cast<QImage *>(vptr);
+    return image->isNull();
+}
+
 ::DosQQuickView *dos_qquickview_create()
 {
     return new QQuickView();

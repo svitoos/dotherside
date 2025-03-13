@@ -186,6 +186,36 @@ DOS_API void DOS_CALL dos_qpixmap_assign(DosPixmap *vptr, const DosPixmap* other
 DOS_API bool DOS_CALL dos_qpixmap_isNull(DosPixmap *vptr);
 /// @}
 
+/// \defgroup QImage QImage
+/// \brief Functions related to the QImage class
+/// @{
+
+/// \brief Creates a null QImage
+DosQImage *dos_qimage_create(void);
+/// \brief Creates a QImage copied from another
+DosQImage *dos_qimage_create_qimage(const DosQImage *other);
+/// \brief Creates a QImage with data owned by binded language
+/// \param callback that will be called when the last copy is destroyed
+/// \param callbackData that will be passed to the callback
+/// \note It calls QImage::QImage(const uchar *data, int width, int height, qsizetype bytesPerLine, QImage::Format format, QImageCleanupFunction cleanupFunction = nullptr, void *cleanupInfo = nullptr) constructor
+DosQImage *dos_qimage_create_constdata(const unsigned char* data, int width, int height, int bytesPerLine, int format, DosQImageCleanupCallback cleanupCallback, void *callbackData);
+/// \brief Frees a QImage
+void dos_qimage_delete(DosQImage *vptr);
+/// \brief Load image data into a QImage from an image file
+void dos_qimage_load(DosQImage *vptr, const char* filepath, const char* format);
+/// \brief Load image data into a QImage from a buffer
+void dos_qimage_loadFromData(DosQImage *vptr, const unsigned char* data, unsigned int len);
+/// \brief Fill a QImage with a single color
+void dos_qimage_fill(DosQImage *vptr, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+/// \brief Calls the QImage::operator=(const QImage&) function
+/// \param vptr The left hand side QImage
+/// \param other The right hand side QImage
+void dos_qimage_assign(DosQImage *vptr, const DosQImage *other);
+/// \brief Calls the QImage::isNull
+/// \return True if the QImage is null, false otherwise
+bool dos_qimage_isNull(DosQImage *vptr);
+/// @}
+
 
 /// \defgroup QQuickStyle QQuickStyle
 /// \brief Functions related to the QQuickStyle class

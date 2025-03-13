@@ -86,6 +86,9 @@ typedef void DosQQuickImageProvider;
 /// A pointer to a QPixmap
 typedef void DosPixmap;
 
+/// A pointer to a QImage
+typedef void DosQImage;
+
 /// A pointer to a QPointer
 typedef void DosQPointer;
 
@@ -102,6 +105,9 @@ typedef void DosQMetaObjectConnection;
 /// \note \p id is the trailing part of an image source url for example "image://<provider_id>/<id>
 /// \note The \p result arg is an out parameter so it \b shouldn't be deleted. See the dos_qpixmap_assign
 typedef void (DOS_CALL *RequestPixmapCallback)(const char *id, int *width, int *height, int requestedWidth, int requestedHeight, DosPixmap* result);
+
+/// A callback that will be called when the last copy QImage is destroyed
+typedef void (DOS_CALL *DosQImageCleanupCallback)(void *callbackData);
 
 /// Called when a property is readed/written or a slot should be executed
 /// \param self The pointer of QObject in the binded language
