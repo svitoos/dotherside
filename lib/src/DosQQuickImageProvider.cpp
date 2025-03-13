@@ -19,14 +19,22 @@
 
 #include "DOtherSide/DosQQuickImageProvider.h"
 
-DosImageProvider::DosImageProvider(RequestPixmapCallback callback) : QQuickImageProvider(QQuickImageProvider::Pixmap),
-                                                              m_pixmap_callback(callback)
+DosImageProvider::DosImageProvider(DosRequestPixmapCallback pixmapCallback, DosRequestImageCallback imageCallback, void *callbackData) :
+    QQuickImageProvider(pixmapCallback ? QQuickImageProvider::Pixmap : QQuickImageProvider::Image),
+    m_pixmap_callback(pixmapCallback), m_image_callback(imageCallback), m_callback_data(callbackData)
 {
 }
 
 QPixmap DosImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &/*requestedSize*/)
 {
     QPixmap result;
-    m_pixmap_callback(id.toLatin1().data(), &size->rwidth(), &size->rheight(), size->width(), size->height(), &result);
+    m_pixmap_callback(id.toLatin1().data(), m_callback_data, &size->rwidth(), &size->rheight(), size->width(), size->height(), &result);
+    return result;
+}
+
+QImage DosImageProvider::requestImage(const QString &id, QSize *size, const QSize &/*requestedSize*/)
+{
+    QImage result;
+    m_image_callback(id.toLatin1().data(), m_callback_data, &size->rwidth(), &size->rheight(), size->width(), size->height(), &result);
     return result;
 }

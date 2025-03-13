@@ -24,6 +24,7 @@
 
 // Qt
 #include <QtGui/QPixmap>
+#include <QtGui/QImage>
 #include <QtQuick/QQuickImageProvider>
 
 #include "DOtherSideTypes.h"
@@ -31,10 +32,12 @@
 class DosImageProvider : public QQuickImageProvider
 {
 public:
-    DosImageProvider(RequestPixmapCallback callback);
+    DosImageProvider(DosRequestPixmapCallback pixmapCallback, DosRequestImageCallback imageCallback, void *callbackData);
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
-
+    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 private:
-    RequestPixmapCallback m_pixmap_callback;
+    DosRequestPixmapCallback m_pixmap_callback;
+    DosRequestImageCallback m_image_callback;
+    void *m_callback_data;
 };

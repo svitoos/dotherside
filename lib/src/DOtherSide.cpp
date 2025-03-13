@@ -169,10 +169,14 @@ void dos_qqmlapplicationengine_delete(::DosQQmlApplicationEngine *vptr)
     delete engine;
 }
 
-
-::DosQQuickImageProvider *dos_qquickimageprovider_create(RequestPixmapCallback callback)
+::DosQQuickImageProvider *dos_qquickimageprovider_create_qpixmap(DosRequestPixmapCallback callback, void *callbackData)
 {
-    return new DosImageProvider(callback);
+    return new DosImageProvider(callback, nullptr, callbackData);
+}
+
+::DosQQuickImageProvider *dos_qquickimageprovider_create_qimage(DosRequestImageCallback callback, void *callbackData)
+{
+    return new DosImageProvider(nullptr, callback, callbackData);
 }
 
 void dos_qquickimageprovider_delete(::DosQQuickImageProvider *vptr)

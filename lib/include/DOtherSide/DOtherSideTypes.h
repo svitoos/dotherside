@@ -97,6 +97,7 @@ typedef void DosQMetaObjectConnection;
 
 /// A pixmap callback to be supplied to an image provider
 /// \param id Image source id
+/// \param callbackData callback data passed to dos_qquickimageprovider_create_qimage
 /// \param width pointer to the width of the image
 /// \param height pointer to the height of the image
 /// \param requestedHeight sourceSize.height attribute
@@ -104,7 +105,19 @@ typedef void DosQMetaObjectConnection;
 /// \param[out] result The result QPixmap. This should be assigned from the binded language
 /// \note \p id is the trailing part of an image source url for example "image://<provider_id>/<id>
 /// \note The \p result arg is an out parameter so it \b shouldn't be deleted. See the dos_qpixmap_assign
-typedef void (DOS_CALL *RequestPixmapCallback)(const char *id, int *width, int *height, int requestedWidth, int requestedHeight, DosPixmap* result);
+typedef void (DOS_CALL *DosRequestPixmapCallback)(const char *id, void *callbackData, int *width, int *height, int requestedWidth, int requestedHeight, DosPixmap* result);
+
+/// A image callback to be supplied to an image provider
+/// \param id Image source id
+/// \param callbackData callback data passed to dos_qquickimageprovider_create_qimage
+/// \param width pointer to the width of the image
+/// \param height pointer to the height of the image
+/// \param requestedHeight sourceSize.height attribute
+/// \param requestedWidth sourcesSize.width attribute
+/// \param[out] result The result QImage. This should be assigned from the binded language
+/// \note \p id is the trailing part of an image source url for example "image://<provider_id>/<id>
+/// \note The \p result arg is an out parameter so it \b shouldn't be deleted. See the dos_qimage_assign
+typedef void (DOS_CALL *DosRequestImageCallback)(const char *id, void *callbackData, int *width, int *height, int requestedWidth, int requestedHeight, DosQImage* result);
 
 /// A callback that will be called when the last copy QImage is destroyed
 typedef void (DOS_CALL *DosQImageCleanupCallback)(void *callbackData);
