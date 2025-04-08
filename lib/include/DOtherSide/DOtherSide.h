@@ -204,7 +204,7 @@ DOS_API DosQImage *DOS_CALL dos_qimage_create(void);
 /// \brief Creates a QImage copied from another
 DOS_API DosQImage *DOS_CALL dos_qimage_create_qimage(const DosQImage *other);
 /// \brief Creates a QImage with data owned by binded language
-/// \param callback that will be called when the last copy is destroyed
+/// \param cleanupCallback that will be called when the last copy is destroyed
 /// \param callbackData that will be passed to the callback
 /// \note It calls QImage::QImage(const uchar *data, int width, int height, qsizetype bytesPerLine, QImage::Format format, QImageCleanupFunction cleanupFunction = nullptr, void *cleanupInfo = nullptr) constructor
 DOS_API DosQImage *DOS_CALL dos_qimage_create_constdata(const unsigned char* data, int width, int height, int bytesPerLine, int format, DosQImageCleanupCallback cleanupCallback, void *callbackData);
