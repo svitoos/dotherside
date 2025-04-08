@@ -169,6 +169,15 @@ void dos_qqmlapplicationengine_delete(::DosQQmlApplicationEngine *vptr)
     delete engine;
 }
 
+static void compat_requestpixmap_callback(const char *id, void *callbackData, int *width, int *height, int requestedWidth, int requestedHeight, DosPixmap* result) {
+    ((RequestPixmapCallback)(callbackData))(id, width, height, requestedWidth, requestedHeight, result);
+}
+
+::DosQQuickImageProvider *dos_qquickimageprovider_create(RequestPixmapCallback callback)
+{
+    return dos_qquickimageprovider_create_qpixmap(compat_requestpixmap_callback, (void *)(callback));
+}
+
 ::DosQQuickImageProvider *dos_qquickimageprovider_create_qpixmap(DosRequestPixmapCallback callback, void *callbackData)
 {
     return new DosImageProvider(callback, nullptr, callbackData);

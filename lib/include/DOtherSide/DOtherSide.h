@@ -154,6 +154,11 @@ DOS_API void DOS_CALL dos_qqmlapplicationengine_delete(DosQQmlApplicationEngine 
 /// \brief Create a new QQuickImageProvider
 /// \return A new QQuickImageProvider
 /// \note The returned QQuickImageProvider should be freed by using dos_qquickimageprovider_delete(DosQQuickImageProvider*) unless the QQuickImageProvider has been bound to a QQmlApplicationEngine
+/// \deprecated dos_qquickimageprovider_create(RequestPixmapCallback) is deprecated. Please use dos_qquickimageprovider_create_qpixmap(DosRequestPixmapCallback, void *) instead.
+DOS_API DosQQuickImageProvider *DOS_CALL dos_qquickimageprovider_create(RequestPixmapCallback callback);
+/// \brief Create a new QQuickImageProvider
+/// \return A new QQuickImageProvider
+/// \note The returned QQuickImageProvider should be freed by using dos_qquickimageprovider_delete(DosQQuickImageProvider*) unless the QQuickImageProvider has been bound to a QQmlApplicationEngine
 DOS_API DosQQuickImageProvider *DOS_CALL dos_qquickimageprovider_create_qpixmap(DosRequestPixmapCallback callback, void *callbackData);
 /// \brief Create a new QQuickImageProvider
 /// \return A new QQuickImageProvider

@@ -97,6 +97,18 @@ typedef void DosQMetaObjectConnection;
 
 /// A pixmap callback to be supplied to an image provider
 /// \param id Image source id
+/// \param width pointer to the width of the image
+/// \param height pointer to the height of the image
+/// \param requestedHeight sourceSize.height attribute
+/// \param requestedWidth sourcesSize.width attribute
+/// \param[out] result The result QPixmap. This should be assigned from the binded language
+/// \note \p id is the trailing part of an image source url for example "image://<provider_id>/<id>
+/// \note The \p result arg is an out parameter so it \b shouldn't be deleted. See the dos_qpixmap_assign
+/// \deprecated RequestPixmapCallback is deprecated. See dos_qquickimageprovider_create_qpixmap(DosRequestPixmapCallback, void *).
+typedef void (DOS_CALL *RequestPixmapCallback)(const char *id, int *width, int *height, int requestedWidth, int requestedHeight, DosPixmap* result);
+
+/// A pixmap callback to be supplied to an image provider
+/// \param id Image source id
 /// \param callbackData callback data passed to dos_qquickimageprovider_create_qimage
 /// \param width pointer to the width of the image
 /// \param height pointer to the height of the image
